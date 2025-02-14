@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+  labels:
+    app: ghost
+spec:
+  replicas: {{ .Values.ghost.replicaCount }}
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      containers:
+        - name: ghost
+          image: {{ .Values.ghost.image }}
+          ports:
+            - containerPort: {{ .Values.ghost.service.port }}
+          env:
+            - name: url
+              value: "{{ .Values.ghost.env.url }}"
+            - name: database__client
+              value: "{{ .Values.ghost.env.database__client }}"
+            - name: database__connection__host
+              value: "{{ .Values.ghost.env.database__connection__host }}"
+            - name: database__connection__user
+              value: "{{ .Values.ghost.env.database__connection__user }}"
+            - name: database__connection__password
+              value: "{{ .Values.ghost.env.database__connection__password }}"
+            - name: database__connection__database
+              value: "{{ .Values.ghost.env.database__connection__database }}"
+          volumeMounts:
+            - name: ghost-storage
+              mountPath: /var/lib/ghost/content
+      volumes:
+        - name: ghost-storage
+          persistentVolumeClaim:
+            claimName: ghost-pvc
+

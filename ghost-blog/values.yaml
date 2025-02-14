@@ -1,0 +1,36 @@
+# Ghost Configuration
+ghost:
+  image: ghost:latest
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 2368
+  storage:
+    size: 10Gi
+  env:
+    url: "http://yourdomain.com"
+    database__client: "mysql"
+    database__connection__host: "ghost-mysql"
+    database__connection__user: "ghost"
+    database__connection__password: "ghostpassword"
+    database__connection__database: "ghostdb"
+
+# MySQL Configuration
+mysql:
+  image: mysql:latest
+  service:
+    port: 3306
+  storage:
+    size: 10Gi
+  rootPassword: "rootpassword"
+  database: "ghostdb"
+  user: "ghost"
+  password: "ghostpassword"
+
+# Ingress Configuration
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  host: "yourdomain.com"
+
