@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      containers:
+        - name: ghost
+          image: "{{ .Values.ghost.image }}:{{ .Values.ghost.tag }}"
+          ports:
+            - containerPort: 2368
+          env:
+            - name: database__client
+              value: mysql
+            - name: database__connection__host
+              value: mysql
+            - name: database__connection__user
+              value: "{{ .Values.mysql.user }}"
+            - name: database__connection__password
+              value: "{{ .Values.mysql.password }}"
+            - name: database__connection__database
+              value: "{{ .Values.mysql.database }}"
+            - name: database__connection__port
+              value: "3306"
+            - name: url
+              value: "http://{{ .Values.ghost.host }}"
+          volumeMounts:
+            - name: ghost-data
+              mountPath: /var/lib/ghost/content
+      volumes:
+        - name: ghost-data
+          persistentVolumeClaim:
+            claimName: ghost-pvc

@@ -1,0 +1,32 @@
+replicaCount: 1
+
+ghost:
+  image: ghost
+  tag: "latest"
+  host: blog.cloudmasa.com
+  volumeSize: 10Gi
+
+mysql:
+  image: mysql
+  tag: "8.0.36"
+  rootPassword: "your-root-password"
+  database: ghost
+  user: ghost
+  password: "your-ghost-db-password"
+  volumeSize: 10Gi
+
+service:
+  type: LoadBalancer
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: blog.cloudmasa.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+storageClassName: gp2
