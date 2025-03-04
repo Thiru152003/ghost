@@ -1,0 +1,27 @@
+ghost:
+  image:
+    repository: ghost
+    tag: "5.0"   # Latest stable version of Ghost
+    pullPolicy: IfNotPresent
+  env:
+    database:
+      client: mysql
+      connection: mysql://root:password@mysql:3306/ghostdb
+  persistence:
+    enabled: true
+    storageClass: "standard"  # Use the appropriate storage class for your environment
+    accessMode: ReadWriteOnce
+    size: 10Gi
+
+mysql:
+  image:
+    repository: mysql
+    tag: "8.0"  # Compatible version for Ghost
+    pullPolicy: IfNotPresent
+  rootPassword: password
+  database: ghostdb
+  persistence:
+    enabled: true
+    storageClass: "standard"  # Same storage class as Ghost for consistency
+    accessMode: ReadWriteOnce
+    size: 10Gi
