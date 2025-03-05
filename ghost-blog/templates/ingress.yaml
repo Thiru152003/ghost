@@ -2,11 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ghost-ingress
+  namespace: ghost-blog
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx  # ✅ Add this line
   rules:
-    - host: ghost.example.com  # Replace with your desired domain
+    - host: ghost.example.com
       http:
         paths:
           - path: /
@@ -15,4 +17,4 @@ spec:
               service:
                 name: ghost
                 port:
-                  number: 80
+                  number: 2368  # ✅ Corrected to match Ghost's actual port
