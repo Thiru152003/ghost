@@ -1,7 +1,7 @@
 ghost:
   image:
     repository: ghost
-    tag: "5.0"   # Latest stable version of Ghost
+    tag: "5.2.3"   # Latest stable version of Ghost
     pullPolicy: IfNotPresent
   env:
     database:
