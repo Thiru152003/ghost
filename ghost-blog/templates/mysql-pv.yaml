@@ -7,7 +7,7 @@ spec:
     storage: 20Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain  # Retain data even after the PVC is deleted
-  storageClassName: standard  # Change this based on your cluster setup
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
   hostPath:
-    path: /mnt/data/mysql  # You can change this to a different path for your setup
+    path: /mnt/data/mysql  # Adjust based on your setup
