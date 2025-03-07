@@ -17,7 +17,7 @@ spec:
           image: "{{ .Values.ghost.image.repository }}:{{ .Values.ghost.image.tag }}"
           env:
             - name: DATABASE_URL
-              value: "{{ .Values.ghost.env.database.connection }}"
+              value: mysql://root:password@mysql:3306/ghostdb
           volumeMounts:
             - name: ghost-data
               mountPath: /var/lib/ghost/content
