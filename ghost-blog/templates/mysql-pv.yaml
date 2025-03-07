@@ -8,6 +8,6 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain  # Retain data even after the PVC is deleted
-  storageClassName: "{{ .Values.mysql.persistence.storageClass }}"
+  storageClassName: standard  # Change this based on your cluster setup
   hostPath:
     path: /mnt/data/mysql  # You can change this to a different path for your setup
