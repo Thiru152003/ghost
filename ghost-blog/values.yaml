@@ -1,7 +1,7 @@
 ghost:
   image:
     repository: ghost
-    tag: "5.0"  # Replace with the latest secure version
+    tag: "5.110.4"  # Replace with the latest secure version
     pullPolicy: IfNotPresent
   env:
     database:
