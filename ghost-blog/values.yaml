@@ -1,7 +1,7 @@
 ghost:
   image:
     repository: ghost
-    tag: latest  # Replace with the latest secure version
+    tag: "5.110.4"  # Use the exact Ghost version
     pullPolicy: IfNotPresent
   env:
     database:
@@ -9,19 +9,19 @@ ghost:
       connection: mysql://root:password@mysql:3306/ghostdb
   persistence:
     enabled: true
-    storageClass: "standard"  # Use the appropriate storage class for your environment
+    storageClass: "standard"
     accessMode: ReadWriteOnce
     size: 20Gi
 
 mysql:
   image:
     repository: mysql
-    tag: "8.0"  # Compatible version for Ghost
+    tag: "8.0.41"  # Latest stable MySQL 8.0 compatible with Ghost
     pullPolicy: IfNotPresent
   rootPassword: password
   database: ghostdb
   persistence:
     enabled: true
-    storageClass: "standard"  # Same storage class as Ghost for consistency
+    storageClass: "standard"
     accessMode: ReadWriteOnce
     size: 20Gi
